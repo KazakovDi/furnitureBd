@@ -1,0 +1,26 @@
+<h1>Клиенты</h1>
+
+<h1>Комплектующие</h1>
+<a href="/clients/create">Добавить комплектующие</a>
+<table align="center"rules="cols">
+<tr>
+    <td>Имя</td>
+    <td>Дата</td>
+    <td>Покупки</td>
+    <td>Сумма</td>
+    <td>Управление</td>
+</tr>
+<% details.forEach(detail => { %>
+    <tr> 
+        <td><%= detail.productName %></td>
+        <td><%= detail.productArticul%></td>
+        <td><%= detail.productDescription%></td> 
+        <td>
+        <form method="POST" action="/<%= detail.id %>?_method=DELETE">
+            <button type="submit">Удалить</button>
+        </form>
+        <a href="/detail/<%= detail.id %>/edit">Изменить</a> </td> 
+    </tr>
+    
+<%});%>
+</table>

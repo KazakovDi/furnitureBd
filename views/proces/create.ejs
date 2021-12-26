@@ -1,0 +1,23 @@
+<form action="/proces/create" method="POST">
+    <input type="date" name="startDate">
+    <input type="date" name="deadlineDate">
+    <select name="detail">
+        <% items.forEach( item => { %>
+            <option id="selectItem" label = "<%=item.productName %>" value="<%=item.id%>">
+         <%})%>
+    </select>
+    <textarea id="detailsIds" name="details"></textarea>
+    <ul id="detailsList">
+    </ul>
+    <input type="text" name="procesName">
+    <input type="text" name="product">
+    <input type="text" name="masterName">
+    <input type="text" name="departament">
+    <input type="number" name="quantity">
+    <input placeholder="Хуйло" type="number" name="listSize">
+    <input type="number" name="totalProcesPrice">
+    <input type="submit" value="Создать">
+</form>
+<button id="add">Добавить</button>
+<button id="addInput">Инпуты</button>
+<script src="../scripts/list.js"></script>

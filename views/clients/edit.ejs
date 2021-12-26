@@ -1,0 +1,7 @@
+<h2>Изменить комплектующее</h2>
+<form action="/detail/<%= item.id %>?_method=PUT" method="POST">
+    <input type="text" name="detailName" value="<%=item.productName%>">
+    <textarea type="text" name="detailDescription"><%=item.productDescription%></textarea>
+    <a href="/">Отмена</a>
+    <button type="submit">Изменить</button>
+</form>

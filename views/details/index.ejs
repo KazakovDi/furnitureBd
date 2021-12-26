@@ -1,0 +1,24 @@
+
+    <h1>Комплектующие</h1>
+    <a href="/createDetail">Добавить комплектующие</a>
+<table align="center"rules="cols">
+    <tr>
+        <td>Наименование</td>
+        <td>Артикул</td>
+        <td>Описание</td>
+        <td>Управление</td>
+    </tr>
+    <% details.forEach(detail => { %>
+        <tr> 
+            <td><%= detail.productName %></td>
+            <td><%= detail.productArticul%></td>
+            <td><%= detail.productDescription%></td> 
+            <td>
+            <form method="POST" action="/<%= detail.id %>?_method=DELETE">
+                <button type="submit">Удалить</button>
+            </form>
+            <a href="/detail/<%= detail.id %>/edit">Изменить</a> </td> 
+        </tr>
+        
+    <%});%>
+</table>

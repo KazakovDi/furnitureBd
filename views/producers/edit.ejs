@@ -1,0 +1,9 @@
+<h2>Изменить изготовителя</h2>
+<form action="/producers/<%= producer.id %>?_method=PUT" method="POST">
+    <input placeholder="Имя мастера" name="producerName" value="<%= producer.producerName%>">
+    <input placeholder="Артикул" name="workshop" value="<%= producer.workshop%>">
+    <input placeholder="Разряд мастера" name="level" value="<%= producer.level%>">
+    <input placeholder="Номер паспорта" name="pasport" value="<%= producer.pasport%>">
+    <a href="/producers">Отмена</a>
+    <button type="submit">Изменить</button>
+</form>

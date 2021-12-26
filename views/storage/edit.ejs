@@ -1,0 +1,17 @@
+<h2>Изменить информацию на складе</h2>
+<form action="/storage/<%= storageItem.id %>?_method=PUT" method="POST">
+    <select name="item">
+        <% items.forEach( item=> { %>
+        <% if(item.id === storageItem.item) { %>
+            <option selected label="<%=item.productName %>" value="<%=item.id%>">
+         <%} else { %>
+            <option label = "<%=item.productName %>" value="<%=item.id%>">
+         <%}%>
+              <input name="quantity" type="number" placeholder="Количество" value="<%= storageItem.quantity %>">
+              <input name="date" type="date" value="<%= storageItem.importDate %>">
+              <input type="submit" value="Изменить">
+        <%})%>
+        </select>
+    <a href="/storage">Отмена</a>
+    <button type="submit">Изменить</button>
+</form>

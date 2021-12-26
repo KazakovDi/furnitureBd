@@ -1,0 +1,36 @@
+
+    <h1>Процессы</h1>
+<table align="center"rules="cols">
+    <tr>
+        <td>Дата</td>
+        <td>Детали</td>
+        <td>Операция</td>
+        <td>Изделие</td>
+        <td>Мастер</td>
+        <td>Участок</td>
+        <td>Количество</td>
+        <td>Стоимость</td>
+    </tr>
+    <% procs.forEach(proc => { %>
+        <tr> 
+            <td><%= proc.startDate %></td>
+            <td><%= proc.deadlineDate %></td>
+            <td>
+            <% proc.details.forEach(detail=> { %>
+                detail.productName
+            <%})%></td>
+            <td><%= proc.procesName %></td>
+            <td><%= proc.product%></td>
+            <td><%= proc.masterName%></td> 
+            <td><%= proc.departament%></td> 
+            <td><%= proc.quantity%></td>
+            <td><%= proc.totalProcesPrice%></td> 
+            <td>
+            <form method="POST" action="/<%= proc.id %>?_method=DELETE">
+                <button type="submit">Удалить</button>
+            </form>
+            <a href="/proces/<%= proc.id %>/edit">Изменить</a> </td> 
+        </tr>
+        
+    <%});%>
+</table>
