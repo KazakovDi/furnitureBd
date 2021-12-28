@@ -1,16 +1,16 @@
 const {Schema, model} = require("mongoose")
-const producerSchema = new Schema({
-    producerName: {
+const employeeSchema = new Schema({
+    employeeName: {
         type:String,
         required:true
     },
-    workshop: {
+    position: {
         type:String,
         required:true
     }, 
-    level: {
-        type:Number,
-        required:true
+    departament: {
+        ref:"departamentModel",
+        type:Schema.Types.ObjectId
     },
     pasport: {
         type:String,
@@ -19,7 +19,4 @@ const producerSchema = new Schema({
     }
 })
 
-
-
-
-module.exports = model("producerModel", producerSchema)
+module.exports = model("employeeModel", employeeSchema)

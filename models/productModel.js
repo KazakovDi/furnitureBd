@@ -1,5 +1,5 @@
 const {Schema, model} = require("mongoose")
-const detailSchema = new Schema({
+const productSchema = new Schema({
     productName: {
         type:String,
         required:true
@@ -9,6 +9,10 @@ const detailSchema = new Schema({
         required:true,
         unique:true
     },
+    productType: {
+        type:String,
+        required:true
+    },
     productDescription: {
         type:String,
         default:"Нет данных",
@@ -16,4 +20,4 @@ const detailSchema = new Schema({
     }
 })
 
-module.exports = model("detailModel", detailSchema)
+module.exports = model("productModel", productSchema)

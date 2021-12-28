@@ -1,40 +1,34 @@
 const {Schema, model} = require("mongoose")
-const procesSchema = new Schema({
-    startDate: {
-        type:Date,
-        required:true
-    }, 
-    deadlineDate: {
+const processSchema = new Schema({
+    processDate: {
         type:Date, 
         required:true
     },
-    details: [{
-        detail: {
-            ref:"detailModel",
-            type:Schema.Types.ObjectId
-        }
-    }],
-    procesName: {
+    processName: {
         type:String, 
         required:true
     },
-    product: {
-        type:String,
-        required:true
+    detail: {
+        ref:"productModel",
+        type:Schema.Types.ObjectId
     },
-    masterName: {
-        type:String,
-        required:true
+    product: {
+        ref:"productModel",
+        type:Schema.Types.ObjectId
+    },
+    master: {
+        ref:"employeeModel",
+        type:Schema.Types.ObjectId
     },
     departament: {
-        type:String,
-        required:true
+        ref:"departamentModel",
+        type:Schema.Types.ObjectId
     },
     quantity: {
         type:Number,
         required:true
     },
-    totalProcesPrice: {
+    processPrice: {
         type:Number,
         required:true
     }
@@ -42,4 +36,4 @@ const procesSchema = new Schema({
 
 
 
-module.exports = model("procesModel", procesSchema)
+module.exports = model("processModel", processSchema)

@@ -1,17 +1,18 @@
 const router = require("express").Router()
-const detail = require("../models/detailModel")
+const detail = require("../models/productModel")
 
 router.get("/", async(req,res)=> {
     const details = await detail.find({})
     res.render("details/index", {title: "Комплектующие", details})
 })
-router.get("/createDetail", async(req,res)=> {
-    res.render("details/createDetail", {title: "Новое комплектующее"})
+router.get("/create", async(req,res)=> {
+    res.render("details/create", {title: "Новое комплектующее"})
 })
-router.post("/createDetail", async(req,res)=> {
+router.post("/create", async(req,res)=> {
     const newDetail = await new detail({
         productName:req.body.detailName,
         productArticul:req.body.detailId,
+        productType:req.body.productType,
         productDescription:req.body.detailDescription
     })
     await newDetail.save()

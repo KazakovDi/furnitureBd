@@ -1,10 +1,11 @@
 
     <h1>Комплектующие</h1>
-    <a href="/createDetail">Добавить комплектующие</a>
+    <a href="/create">Добавить комплектующие</a>
 <table align="center"rules="cols">
     <tr>
         <td>Наименование</td>
         <td>Артикул</td>
+        <td>Тип</td>
         <td>Описание</td>
         <td>Управление</td>
     </tr>
@@ -12,6 +13,7 @@
         <tr> 
             <td><%= detail.productName %></td>
             <td><%= detail.productArticul%></td>
+            <td><%= detail.productType%></td>
             <td><%= detail.productDescription%></td> 
             <td>
             <form method="POST" action="/<%= detail.id %>?_method=DELETE">

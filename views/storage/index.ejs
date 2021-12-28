@@ -7,13 +7,15 @@
     <td>Название</td>
     <td>Артикул</td>
     <td>Количество</td>
+    <td>Тип</td>
     <td>Дата поступления</td>
     <td>Управление</td>
 </tr>
 <% storageItems.forEach(storageItem => { %>
-        <td><%= storageItem.item.productName %></td>
+        <td><%= storageItem.item.productName%></td>
         <td><%= storageItem.item.productArticul %></td>
         <td><%= storageItem.quantity%></td>
+        <td><%= storageItem.item.productType %></td>
         <td><%= storageItem.importDate.toLocaleDateString()%></td> 
         <td><form method="POST" action="/storage/<%=storageItem.id%>?_method=DELETE">
             <button type="submit">Удалить</button>

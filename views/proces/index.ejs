@@ -7,29 +7,29 @@
         <td>Операция</td>
         <td>Изделие</td>
         <td>Мастер</td>
-        <td>Участок</td>
+        <td>Отдел</td>
         <td>Количество</td>
         <td>Стоимость</td>
     </tr>
     <% procs.forEach(proc => { %>
         <tr> 
-            <td><%= proc.startDate %></td>
-            <td><%= proc.deadlineDate %></td>
-            <td>
-            <% proc.details.forEach(detail=> { %>
-                detail.productName
-            <%})%></td>
-            <td><%= proc.procesName %></td>
-            <td><%= proc.product%></td>
-            <td><%= proc.masterName%></td> 
-            <td><%= proc.departament%></td> 
+            <td><%= proc.processDate.toLocaleDateString() %></td>
+            <td><%= proc.detail.productName%></td>
+            <td><%= proc.processName %></td>
+            <td><%= proc.product.productName%></td>
+            <td><%= proc.master.employeeName%></td> 
+            <%if(proc.departament !== undefined) { %>
+                <td><%= proc.departament.departamentName%></td> 
+            <%} else {%>
+                <td></td>
+                <%  }%>
             <td><%= proc.quantity%></td>
-            <td><%= proc.totalProcesPrice%></td> 
+            <td><%= proc.processPrice%></td> 
             <td>
             <form method="POST" action="/<%= proc.id %>?_method=DELETE">
                 <button type="submit">Удалить</button>
             </form>
-            <a href="/proces/<%= proc.id %>/edit">Изменить</a> </td> 
+            <a href="/process/<%= proc.id %>/edit">Изменить</a> </td> 
         </tr>
         
     <%});%>

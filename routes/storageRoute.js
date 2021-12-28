@@ -1,26 +1,13 @@
 const router = require("express").Router()
 const storage = require("../models/storage")
-const details = require("../models/detailModel")
+const products = require("../models/productModel")
 router.get("/", async (req,res)=> {
     const storageItems = await storage.find({}).populate("item").exec()
-    const items = await details.find({})
-    // console.log(storageItems[0].item)
-    res.render("storage/index", {title:"Склад",items, storageItems})
+    res.render("storage/index", {title:"Склад", storageItems})
 })
-
-
 router.get("/create", async (req,res)=> {
-    const items = await details.find({})
-    // const storageItem = new storage({
-    //     item:"61bcafb1f8950f3fe927748a",
-    //     quantity: 2,
-    //     importDate: Date.now()
-    // })
+    const items = await products.find({})
     const storageItems = await storage.find({})
-    // items.forEach(item => {
-    //     console.log(item)
-    // })
-    console.log(storageItems)
     res.render("storage/create", {title:"Добавить на склад", storageItems, items})
 })
 router.post("/create", async (req,res)=> {
@@ -29,7 +16,7 @@ router.post("/create", async (req,res)=> {
         quantity:req.body.quantity,
         importDate: new Date( req.body.date)
     }).save()
-    res.redirect("/")
+    res.redirect("/storage")
 })
 router.delete("/:id", async(req,res)=> {
     let item
@@ -42,8 +29,21 @@ router.delete("/:id", async(req,res)=> {
     }
 })
 router.get("/:id/edit", async(req,res)=> {
-    const storageItem = await storage.findById(req.params.id);
-    const items = await details.find({})
+    const storageItem = await storage.findById(req.params.id).populate("item").exec();
+    const items = await products.find({})
     res.render("storage/edit", {title:"Изменить на складе", storageItem, items})
+})
+router.put("/:id", async(req,res)=> {
+    let storageItem
+    try {
+        storageItem = await storage.findById(req.params.id)
+        storageItem.quantity = req.body.quantity
+        if(req.body.date !== "")
+        storageItem.importDate = req.body.date
+        await storageItem.save()
+        res.redirect("/storage")
+    } catch(err){
+        console.log(err)
+    }
 })
 module.exports = router

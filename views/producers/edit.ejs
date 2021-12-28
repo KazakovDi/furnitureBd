@@ -1,9 +1,13 @@
 <h2>Изменить изготовителя</h2>
-<form action="/producers/<%= producer.id %>?_method=PUT" method="POST">
-    <input placeholder="Имя мастера" name="producerName" value="<%= producer.producerName%>">
-    <input placeholder="Артикул" name="workshop" value="<%= producer.workshop%>">
-    <input placeholder="Разряд мастера" name="level" value="<%= producer.level%>">
-    <input placeholder="Номер паспорта" name="pasport" value="<%= producer.pasport%>">
+<form action="/employees/<%= employee.id %>?_method=PUT" method="POST">
+    <input placeholder="Имя мастера" name="employeeName" value="<%=employee.employeeName%>">
+    <select name="departament">
+        <% departaments.forEach( departament => { %>
+            <option label = "<%=departament.departamentName %>" value="<%=departament.id%>">
+                <%})%>
+    </select>
+    <input placeholder="Должность" name="position" value="<%= employee.position%>">
+    <input placeholder="Номер паспорта" name="pasport" value="<%= employee.pasport%>">
     <a href="/producers">Отмена</a>
     <button type="submit">Изменить</button>
 </form>

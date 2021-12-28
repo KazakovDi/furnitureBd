@@ -1,15 +1,13 @@
 <form action="/storage/create" method="POST">
 <select name="item">
 <% items.forEach( item=> { %>
-<% if(item.id === storageItems.item) { %>
-    <option selected label="<%=item.productName %>" value="<%=item.id%>">
- <%} else { %>
-    <option label = "<%=item.productName %>" value="<%=item.id%>">
- <%}%>
-      <input name="quantity" type="number" placeholder="Количество">
+    <option label="<%=item.productName %>" value="<%=item.id%>">
+      <%})%>
+</select>
+      
+
+<input name="quantity" type="number" placeholder="Количество">
       <input name="date" type="date" placeholder="Дата">
       <input type="submit" value="Добавить на склад">
-<%})%>
-</select>
 </form>
 

@@ -1,7 +1,11 @@
-<form action="/producers/create" method="POST">
-    <input placeholder="Имя мастера" name="producerName">
-    <input placeholder="Артикул" name="workshop">
-    <input placeholder="Разряд мастера" name="level">
+<form action="/employees/create" method="POST">
+    <input placeholder="Имя рабочего" name="employeeName">
+    <select name="departament">
+        <% departaments.forEach( departament => { %>
+            <option label = "<%=departament.departamentName %>" value="<%=departament.id%>">
+                <%})%>
+    </select>
+    <input placeholder="Должность" name="position">
     <input placeholder="Номер паспорта" name="pasport">
     <input type="submit" value="Создать">
 </form>

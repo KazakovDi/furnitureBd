@@ -13,8 +13,8 @@ const salesSchema = new Schema({
         required:true
     },
     departament: {
-        type:String, 
-        required:true
+        ref:"departamentModel",
+        type:Schema.Types.ObjectId
     },
     item: {
         ref:"detailModel",

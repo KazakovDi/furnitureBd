@@ -9,8 +9,8 @@ const clientSchema = new Schema({
         required:true
     },
     items: {
-        type:String,
-        required:true
+        ref:"productModel",
+        type: Schema.Types.ObjectId
     },
     summ: {
         type:Number,

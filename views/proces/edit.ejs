@@ -1,7 +1,32 @@
-<h2>Изменить комплектующее</h2>
-<form action="/detail/<%= item.id %>?_method=PUT" method="POST">
-    <input type="text" name="detailName" value="<%=item.productName%>">
-    <textarea type="text" name="detailDescription"><%=item.productDescription%></textarea>
-    <a href="/">Отмена</a>
-    <button type="submit">Изменить</button>
+<form action="/process/<%=process.id%>?_method=PUT" method="POST">
+    <input type="date" name="processDate" value="<%=process.processDate%>">
+    <select name="detail">
+        <% details.forEach( detail => { %>
+            <% if(detail.id === process.detail) { %>
+                <option selected label="<%=detail.productName %>" value="<%=detail.id%>"></option>
+            <%}%>
+            <option label = "<%=detail.productName %>" value="<%=detail.id%>">
+                <%})%>
+    </select>
+    <input placeholder="название процесса "type="text" value="<%=process.processName%>" name="processName">
+    <select name="product">
+        <% products.forEach( product => { %>
+            <% if(product.id === process.product) { %>
+                <option selected label="<%=product.productName %>" value="<%=product.id%>"></option>
+            <%}%>
+            <option label = "<%=product.productName %>" value="<%=product.id%>">
+            <%})%>
+    </select>
+    <select name="master">
+        <% employees.forEach( employee => { %>
+            <% if(employee.id === process.master) { %>
+                <option selected label="<%=employee.employeeName %>" value="<%=employee.id%>"></option>
+            <%}%>
+            <option label = "<%=employee.employeeName %>" value="<%=employee.id%>">
+                <%})%>
+    </select>
+    <input placeholder="количество" type="number" value="<%=process.quantity %>" name="quantity">
+    <input placeholder="цена процедуры" type="number" value="<%=process.processPrice %>" name="processPrice">
+    <a href="/process">Отмена</a>
+    <input type="submit" value="Изменить">
 </form>

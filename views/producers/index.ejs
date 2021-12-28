@@ -1,23 +1,23 @@
 
-    <h1>Изготовители</h1>
+    <h1>Рабочие</h1>
 <table align="center"rules="cols">
     <tr>
         <td>Имя</td>
-        <td>Мастерская</td>
-        <td>Разряд</td>
+        <td>Должность</td>
+        <td>Отдел</td>
         <td>Паспорт</td>
     </tr>
-    <% producers.forEach(producer => { %>
+    <% employees.forEach(employee => { %>
         <tr> 
-            <td><%= producer.producerName %></td>
-            <td><%= producer.workshop%></td>
-            <td><%= producer.level%></td> 
-            <td><%= producer.pasport%></td> 
+            <td><%= employee.employeeName %></td>
+            <td><%= employee.position%></td>
+            <td><%= employee.departament.departamentName%></td> 
+            <td><%= employee.pasport%></td> 
             <td>
-            <form method="POST" action="/<%= producer.id %>?_method=DELETE">
+            <form method="POST" action="/employees/<%= employee.id %>?_method=DELETE">
                 <button type="submit">Удалить</button>
             </form>
-            <a href="/producers/<%= producer.id %>/edit">Изменить</a></td> 
+            <a href="/employees/<%= employee.id %>/edit">Изменить</a></td> 
         </tr>
         
     <%});%>
