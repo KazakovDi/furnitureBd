@@ -1,8 +1,34 @@
-<h1>Клиенты</h1>
 
 <h1>Комплектующие</h1>
-<a href="/storage/create">Добавить комплектующие</a>
+<a href="/storage/create">Добавить хранимое</a>
 <table align="center"rules="cols">
+    <form action="/storage" method="GET">
+        <input type="text" name="name" value="<%= searchOptions.name%>">
+        <input type="text" name="articul" value="<%=searchOptions.articul%>">
+        <input placeholder="Больше чем" type="number" name="quantityMore" value="<%=searchOptions.quantityMore %>">
+        <input placeholder="Меньше чем"type="number" name="quantityLess" value="<%=searchOptions.quantityLess %>">
+        <select name="productType">
+            <%if(searchOptions.productType === "Деталь") {%>
+                <option value="" label="Все">
+                <option value="Изделие" label="Изделие">
+                <option selected value="Деталь"label="Деталь">
+            <%} else if(searchOptions.productType === "Изделие") {%>
+                <option value="" label="Все">
+                <option selected value="Изделие" label="Изделие">
+                <option value="Деталь"label="Деталь">
+            <%} else {%>
+                <option selected value="" label="Все">
+                <option value="Изделие" label="Изделие">
+                <option value="Деталь"label="Деталь"> 
+            <%}%>
+        </select>
+        <label for="beforeDate">До</label>
+        <input type="date" name="beforeDate" value="<%=searchOptions.beforeDate%>">
+        <label for="beforeDate">После</label>
+        <input type="date" name="afterDate" value="<%=searchOptions.afterDate%>">
+        <input type="submit" value="Искать">
+        <button id="clearBtn">Очистить</button>
+    </form>
 <tr>
     <td>Название</td>
     <td>Артикул</td>
@@ -25,3 +51,4 @@
     
 <%});%>
 </table>
+<script src="../scripts/clear.js"></script>

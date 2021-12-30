@@ -1,0 +1,32 @@
+
+    <h1>Комплектующие</h1>
+    <a href="/sales/create">Добавить продажу</a>
+<table align="center"rules="cols">
+    <tr>
+        <td>Покупатель</td>
+        <td>Дата покупки</td>
+        <td>Продавец</td>
+        <td>Отдел</td>
+        <td>Товар</td>
+        <td>Количество</td>
+        <td>Сумма</td> 
+        <td>Управление</td> 
+    </tr>
+    <% sales.forEach(sale => { %>
+        <tr> 
+            <td><%= sale.client %></td>
+            <td><%= sale.Date.toLocaleDateString()%></td>
+            <td><%= sale.seller.employeeName%></td>
+            <td><%= sale.departament.departamentName%></td> 
+            <td><%= sale.item.productName%></td> 
+            <td><%= sale.quantity%></td> 
+            <td><%= sale.summ%></td> 
+            <td>
+            <form method="POST" action="sales/<%= sale.id %>?_method=DELETE">
+                <button type="submit">Удалить</button>
+            </form>
+            <a href="sales/<%= sale.id %>/edit">Изменить</a> </td> 
+        </tr>
+        
+    <%});%>
+</table>

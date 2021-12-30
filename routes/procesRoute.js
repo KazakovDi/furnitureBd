@@ -4,8 +4,21 @@ const Product = require("../models/productModel")
 const Employee = require("../models/employeeModel")
 const Departament = require("../models/departamentModel")
 router.get("/", async (req,res)=> {
-    const procs = await Process.find({}).populate("product").populate("master").populate("detail").populate("departament")
-    res.render("proces/index", {title:"Таблица процессов", procs})
+    let query = Process.find().populate("product").populate("master").populate("detail").populate("departament")
+    // if(req.query.articul !== null && req.query.articul !== "") {
+    //     query = query.regex("productArticul", new RegExp(req.query.articul, "i"))
+    // }
+    // if(req.query.productType !== null && req.query.productType !== "" && req.query.productType !== "Все") {
+    //     query = query.regex("productType", new RegExp(req.query.productType, "i"))
+    // }
+    if(req.query.beforeDate !== null && req.query.beforeDate !== "" && req.query.beforeDate !== undefined) {
+        query = query.lte("processDate", req.query.beforeDate)
+    }
+    if(req.query.afterDate !== null && req.query.afterDate !== "" && req.query.beforeDate !== undefined) {
+        query = query.gte("processDate", req.query.afterDate)
+    }
+    const procs = await query.exec()
+    res.render("proces/index", {title:"Таблица процессов", procs,  searchOptions:req.query})
 })
 router.get("/create", async (req,res)=> {
     const procs = await Process.find({}).populate("product").populate("master").populate("departament")

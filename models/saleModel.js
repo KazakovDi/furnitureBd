@@ -1,35 +1,32 @@
 const {Schema, model} = require("mongoose")
 const salesSchema = new Schema({
     client: {
-        ref:"clientModel",
-        type:Schema.Types.ObjectId
+        type:String, 
+        required:true
     },
     Date: {
-        ref:"clientModel",
-        type:Schema.Types.ObjectId
+        type:Date, 
+        default:Date.now(),
+        required:true
     },
     seller: {
-        type:String,
-        required:true
+        ref:"employeeModel",
+        type:Schema.Types.ObjectId
     },
     departament: {
         ref:"departamentModel",
         type:Schema.Types.ObjectId
     },
     item: {
-        ref:"detailModel",
+        ref:"productModel",
         type:Schema.Types.ObjectId
     },
-    price: {
+    summ: {
         type:Number, 
         required:true
     },
     quantity: {
         type:Number, 
-        required:true
-    },
-    discount: {
-        type:Number,
         required:true
     }
 })

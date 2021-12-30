@@ -1,0 +1,25 @@
+<form action="/sales/<%=sale.id%>?_method=PUT" method="POST">
+    <input placeholder="Имя клиента" value="<%=sale.client%>" name="client">
+    <input type="date" value="<%=sale.Date%>" name="Date">
+    <select name="seller">
+        <% employees.forEach(employee => { %>
+            <% if(employee.id == sale.seller) { %>
+                <option selected label="<%= employee.employeeName%>" value="<%= employee.id %>" >
+                <%} else {%>
+                    <option value="<%= employee.id %>" label="<%= employee.employeeName%>">
+                    <%}%>    
+        <%});%>
+    </select>
+    <select name="item">
+        <% products.forEach(product => { %>
+            <% if(product.id == sale.item  ) { %>
+                <option selected value="<%= product.id %>" label="<%=product.productName%>">
+            <%} else {%>
+                <option value="<%= product.id %>" label="<%= product.productName%>">
+            <%}%>
+        <%});%>
+    </select>
+    <input type="number" placeholder="Количество" value="<%= sale.quantity%>" name="quantity">
+    <a href="/sales">Отмена</a>
+    <input type="submit" value="Изменить">
+</form>

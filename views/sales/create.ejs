@@ -1,0 +1,17 @@
+<form action="/sales/create" method="POST">
+    <input placeholder="Имя клиента" name="client">
+    <input type="date" name="Date">
+    <select name="seller">
+        <% employees.forEach(employee => { %>
+                <option value="<%= employee.id %>" label="<%= employee.employeeName%>"> 
+        <%});%>
+    </select>
+    <select name="item">
+        <% products.forEach(product => { %>
+                <option value="<%= product.id %>" label="<%= product.productName%>">
+        <%});%>
+    </select>
+    <input type="number" placeholder="Количество" name="quantity">
+    <a href="/sales">Отмена</a>
+    <input type="submit" value="Создать">
+</form>

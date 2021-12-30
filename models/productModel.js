@@ -17,6 +17,11 @@ const productSchema = new Schema({
         type:String,
         default:"Нет данных",
         required:true
+    },
+    productPrice: {
+        type:Number,
+        default:0,
+        required:true
     }
 })
 

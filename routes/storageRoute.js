@@ -1,9 +1,21 @@
 const router = require("express").Router()
 const storage = require("../models/storage")
 const products = require("../models/productModel")
+const queryFunc = require("../public/scripts/queryFuncs")
 router.get("/", async (req,res)=> {
-    const storageItems = await storage.find({}).populate("item").exec()
-    res.render("storage/index", {title:"Склад", storageItems})
+    let query
+    try {
+    query = storage.find().populate("item")
+    // query = query.regex("item.productName", new RegExp(req.query.name, 'i'))
+    // query = queryFunc(query, req.query.name, "item.productName")
+    // query = queryFunc(query, req.query.articul, "productArticul")
+    // query = queryFunc(query, req.query.productType, "productType")
+    // query = queryFunc(query, req.query.priceLess, "productPrice", "lte")
+    // query = queryFunc(query, req.query.priceMore, "productPrice", "gte")
+    const storageItems = await query.exec()
+    res.render("storage/index", {title:"Склад", storageItems, searchOptions:req.query})
+    } catch(err) {console.log(err)}
+    
 })
 router.get("/create", async (req,res)=> {
     const items = await products.find({})

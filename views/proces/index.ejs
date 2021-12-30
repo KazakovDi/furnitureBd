@@ -1,5 +1,22 @@
 
     <h1>Процессы</h1>
+    <a href="/process/create">Добавить процессы</a>
+    <form action="/process/" method="GET">
+        <label for="beforeDate">До</label>
+        <input type="date" name="beforeDate" value="<%=searchOptions.beforeDate%>">
+        <label for="beforeDate">После</label>
+        <input type="date" name="afterDate" value="<%=searchOptions.afterDate%>">
+        <input placeholder="Название детали" type="text" name="detail" value="<%= %>">
+        <input placeholder="Название изделия"type="text" name="product" value="<%= %>">
+        <input placeholder="Имя мастера" type="text" name="master" value="<%= %>">
+        <select name="departament"></select>
+        <input placeholder="Количество больше чем" type="number" name="quantityMore" value="<%= %>">
+        <input placeholder="Количество меньше чем"type="number" name="quantityLess" value="<%= %>">
+        <input placeholder="Цена больше чем" type="number" name="priceMore" value="<%= %>">
+        <input placeholder="Цена меньше чем"type="number" name="priceLess" value="<%= %>">
+        <input type="submit" value="Искать">
+        <button id="clearBtn">Очистить</button>
+    </form>
 <table align="center"rules="cols">
     <tr>
         <td>Дата</td>
@@ -34,3 +51,4 @@
         
     <%});%>
 </table>
+<script src="../scripts/clear.js"></script>

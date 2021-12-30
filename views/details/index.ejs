@@ -1,11 +1,36 @@
 
     <h1>Комплектующие</h1>
     <a href="/create">Добавить комплектующие</a>
+    <form action="/" method="GET">
+        <input type="text" name="name" value="<%= searchOptions.name%>">
+        <input type="text" name="articul" value="<%=searchOptions.articul%>">
+        <select name="productType">
+                <%if(searchOptions.productType === "Деталь") {%>
+                    <option value="" label="Все">
+                    <option value="Изделие" label="Изделие">
+                    <option selected value="Деталь"label="Деталь">
+                <%} else if(searchOptions.productType === "Изделие") {%>
+                    <option value="" label="Все">
+                    <option selected value="Изделие" label="Изделие">
+                    <option value="Деталь"label="Деталь">
+                <%} else {%>
+                    <option selected value="" label="Все">
+                    <option value="Изделие" label="Изделие">
+                    <option value="Деталь"label="Деталь">
+                        
+                <%}%>
+        </select>
+        <input placeholder="Больше чем" type="number" name="priceMore" value="<%=searchOptions.priceMore %>">
+        <input placeholder="Меньше чем"type="number" name="priceLess" value="<%=searchOptions.priceLess %>">
+        <input type="submit" value="Искать">
+        <button id="clearBtn">Очистить</button>
+    </form>
 <table align="center"rules="cols">
     <tr>
         <td>Наименование</td>
         <td>Артикул</td>
         <td>Тип</td>
+        <td>Цена за единицу</td>
         <td>Описание</td>
         <td>Управление</td>
     </tr>
@@ -14,6 +39,7 @@
             <td><%= detail.productName %></td>
             <td><%= detail.productArticul%></td>
             <td><%= detail.productType%></td>
+            <td><%= detail.productPrice%></td>
             <td><%= detail.productDescription%></td> 
             <td>
             <form method="POST" action="/<%= detail.id %>?_method=DELETE">
@@ -24,3 +50,4 @@
         
     <%});%>
 </table>
+<script src="../scripts/clear.js"></script>
