@@ -1,31 +1,37 @@
 
-<h1>Комплектующие</h1>
+<h1>Склад</h1>
 <a href="/storage/create">Добавить хранимое</a>
 <table align="center"rules="cols">
     <form action="/storage" method="GET">
-        <input type="text" name="name" value="<%= searchOptions.name%>">
-        <input type="text" name="articul" value="<%=searchOptions.articul%>">
+        <input placeholder="Имя" type="text" name="name" value="<%= searchOptions.name%>">
+        <input placeholder="Артикул" type="text" name="articul" value="<%=searchOptions.articul%>">
         <input placeholder="Больше чем" type="number" name="quantityMore" value="<%=searchOptions.quantityMore %>">
         <input placeholder="Меньше чем"type="number" name="quantityLess" value="<%=searchOptions.quantityLess %>">
         <select name="productType">
-            <%if(searchOptions.productType === "Деталь") {%>
-                <option value="" label="Все">
-                <option value="Изделие" label="Изделие">
-                <option selected value="Деталь"label="Деталь">
-            <%} else if(searchOptions.productType === "Изделие") {%>
-                <option value="" label="Все">
-                <option selected value="Изделие" label="Изделие">
-                <option value="Деталь"label="Деталь">
-            <%} else {%>
-                <option selected value="" label="Все">
-                <option value="Изделие" label="Изделие">
-                <option value="Деталь"label="Деталь"> 
-            <%}%>
+            <option value="" label="Все">
+                <%if(searchOptions.productType === "Деталь") {%>
+                    <option value="Изделие" label="Изделие">
+                    <option selected value="Деталь" label="Деталь">
+                <%} else if(searchOptions.productType === "Изделие") {%>
+                    <option selected value="Изделие" label="Изделие">
+                    <option value="Деталь"label="Деталь">
+                <%} else {%>
+                    <option value="Изделие" label="Изделие">
+                    <option value="Деталь"label="Деталь">
+                <%}%>
         </select>
         <label for="beforeDate">До</label>
         <input type="date" name="beforeDate" value="<%=searchOptions.beforeDate%>">
         <label for="beforeDate">После</label>
         <input type="date" name="afterDate" value="<%=searchOptions.afterDate%>">
+        <select class="<%= searchOptions.sort%>" id="sortSelect" name="sort">
+            <option label="От А до Я" value="item.name">
+            <option label="От Я до А" value="-item.name">
+            <option label="Количество Убывание" value="-quantity">
+            <option label="Количество Возрастание" value="quantity">
+            <option label="Дата Раньше" value="importDate">
+            <option label="Дата Позже" value="-importDate">
+        </select>
         <input type="submit" value="Искать">
         <button id="clearBtn">Очистить</button>
     </form>
@@ -38,8 +44,8 @@
     <td>Управление</td>
 </tr>
 <% storageItems.forEach(storageItem => { %>
-        <td><%= storageItem.item.productName%></td>
-        <td><%= storageItem.item.productArticul %></td>
+        <td><%= storageItem.item.name%></td>
+        <td><%= storageItem.item.articul %></td>
         <td><%= storageItem.quantity%></td>
         <td><%= storageItem.item.productType %></td>
         <td><%= storageItem.importDate.toLocaleDateString()%></td> 
@@ -51,4 +57,6 @@
     
 <%});%>
 </table>
+
+<script src="../scripts/betterSelect.js"></script>
 <script src="../scripts/clear.js"></script>

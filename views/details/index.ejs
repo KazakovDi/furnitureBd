@@ -4,24 +4,20 @@
     <form action="/" method="GET">
         <input type="text" name="name" value="<%= searchOptions.name%>">
         <input type="text" name="articul" value="<%=searchOptions.articul%>">
-        <select name="productType">
-                <%if(searchOptions.productType === "Деталь") {%>
+        <select id="typeSelect" class="<%=searchOptions.productType%>" name="productType">
                     <option value="" label="Все">
                     <option value="Изделие" label="Изделие">
-                    <option selected value="Деталь"label="Деталь">
-                <%} else if(searchOptions.productType === "Изделие") {%>
-                    <option value="" label="Все">
-                    <option selected value="Изделие" label="Изделие">
-                    <option value="Деталь"label="Деталь">
-                <%} else {%>
-                    <option selected value="" label="Все">
-                    <option value="Изделие" label="Изделие">
-                    <option value="Деталь"label="Деталь">
-                        
-                <%}%>
+                    <option value="Деталь" label="Деталь">
         </select>
         <input placeholder="Больше чем" type="number" name="priceMore" value="<%=searchOptions.priceMore %>">
         <input placeholder="Меньше чем"type="number" name="priceLess" value="<%=searchOptions.priceLess %>">
+        <br>
+        <select class="<%= searchOptions.sort%>" id="sortSelect" name="sort">
+            <option label="От А до Я" value="productName">
+            <option label="От Я до А" value="-productName">
+            <option label="Цена Убывание" value="-productPrice">
+            <option label="Цена Возрастание" value="productPrice">
+        </select>
         <input type="submit" value="Искать">
         <button id="clearBtn">Очистить</button>
     </form>
@@ -51,3 +47,4 @@
     <%});%>
 </table>
 <script src="../scripts/clear.js"></script>
+<script src="../scripts/betterSelect.js"></script>

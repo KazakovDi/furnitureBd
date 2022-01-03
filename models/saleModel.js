@@ -10,16 +10,25 @@ const salesSchema = new Schema({
         required:true
     },
     seller: {
-        ref:"employeeModel",
-        type:Schema.Types.ObjectId
+        _id:{ref:"employeeModel", type:Schema.Types.ObjectId},
+        name: {
+            type:String,
+            requried:true
+        }
     },
-    departament: {
-        ref:"departamentModel",
-        type:Schema.Types.ObjectId
+    departament: { 
+        _id:{ref:"employeeModel", type:Schema.Types.ObjectId},
+        name: {
+            type:String,
+            requried:true
+        }
     },
     item: {
-        ref:"productModel",
-        type:Schema.Types.ObjectId
+        _id:{ref:"productModel", type:Schema.Types.ObjectId},
+        name: {
+            type:String,
+            requried:true
+        }
     },
     summ: {
         type:Number, 

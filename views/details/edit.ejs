@@ -1,7 +1,18 @@
 <h2>Изменить комплектующее</h2>
 <form action="/detail/<%= item.id %>?_method=PUT" method="POST">
     <input type="text" name="detailName" value="<%=item.productName%>">
-    <input placeholder="Цена" type="number" name="productPrice">
+    <input placeholder="Артикул" name="detailId" value="<%= item.productArticul%>">
+    <input placeholder="Цена" type="number" name="productPrice" value="<%= item.productPrice%>">
+    <select name="productType">
+        <% if(item.productType === "Деталь") {%>
+            <option selected value="Деталь"label="Деталь">
+            <option value="Изделие" label="Изделие">
+        <%} else { %>
+            <option  value="Деталь"label="Деталь">
+            <option selected value="Изделие" label="Изделие">
+        <%}%>
+        
+    </select>
     <textarea type="text" name="detailDescription"><%=item.productDescription%></textarea>
     <a href="/">Отмена</a>
     <button type="submit">Изменить</button>

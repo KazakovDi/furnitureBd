@@ -1,9 +1,10 @@
 const {Schema, model} = require("mongoose")
 const storageSchema = new Schema({
     item: {
-        ref:"productModel",
-        type: Schema.Types.ObjectId,
-        required:true
+        _id:{type:Schema.Types.ObjectId, ref:"productModel"},
+        name:String,
+        articul:String,
+        productType:String
     },
     quantity: {
         type:Number,

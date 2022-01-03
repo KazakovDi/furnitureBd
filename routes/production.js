@@ -10,11 +10,10 @@ router.get("/", async(req,res)=> {
     query = queryFunc(query, req.query.productType, "productType")
     query = queryFunc(query, req.query.priceLess, "productPrice", "lte")
     query = queryFunc(query, req.query.priceMore, "productPrice", "gte")
+    query = query.sort(req.query.sort)
     const details = await query.exec()
     res.render("details/index", {title: "Комплектующие", details, searchOptions:req.query})
-    } catch(err) {
-        console.log(err)
-    }
+    } catch(err) {console.log(err)}
     
 })
 router.get("/create", async(req,res)=> {
@@ -31,7 +30,7 @@ router.post("/create", async(req,res)=> {
     await newProduct.save()
 })
 router.get("/detail/:id/edit", async(req,res)=> {
-        const item =  await detail.findById(req.params.id)
+        const item =  await product.findById(req.params.id)
         res.render("details/edit", {title: "Изменение комплектующего", item}) 
 })
 router.put("/detail/:id", async(req,res)=> {
@@ -40,6 +39,7 @@ router.put("/detail/:id", async(req,res)=> {
         item =  await product.findById(req.params.id)
         item.productName = req.body.detailName
         item.productDescription = req.body.detailDescription
+        item.productType = req.body.productType
         item.productPrice = req.body.productPrice
         await item.save()
         res.redirect("/")
@@ -50,7 +50,7 @@ router.put("/detail/:id", async(req,res)=> {
 router.delete("/:id", async (req,res)=>{
     let item
     try {
-      item = await detail.findById(req.params.id)
+      item = await product.findById(req.params.id)
       await item.remove()
       res.redirect(`/`) 
     } catch(err) {

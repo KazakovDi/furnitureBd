@@ -9,20 +9,32 @@ const processSchema = new Schema({
         required:true
     },
     detail: {
-        ref:"productModel",
-        type:Schema.Types.ObjectId
+        _id:{ref:"productModel", type:Schema.Types.ObjectId, required:true},
+        name:{
+            type:String,
+            required:true
+        }
     },
     product: {
-        ref:"productModel",
-        type:Schema.Types.ObjectId
+        _id:{ref:"productModel", type:Schema.Types.ObjectId, required:true},
+        name:{
+            type:String,
+            required:true
+        }
     },
     master: {
-        ref:"employeeModel",
-        type:Schema.Types.ObjectId
+        _id:{ref:"employeeModel", type:Schema.Types.ObjectId, required:true},
+        name:{
+            type:String,
+            required:true
+        }
     },
-    departament: {
-        ref:"departamentModel",
-        type:Schema.Types.ObjectId
+    departament: { 
+        _id:{ref:"employeeModel", type:Schema.Types.ObjectId, requried:true},
+        name: {
+            type:String,
+            requried:true
+        }
     },
     quantity: {
         type:Number,

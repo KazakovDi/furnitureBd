@@ -1,5 +1,41 @@
 
-    <h1>Комплектующие</h1>
+<h1>Продажи</h1>
+    <form action="/sales" method="GET">
+        <input placeholder="Имя клиента" type="text" name="client" value="<%= searchOptions.client%>">
+        <label for="beforeDate">До</label>
+        <input type="date" name="beforeDate" value="<%=searchOptions.beforeDate%>">
+        <label for="beforeDate">После</label>
+        <input type="date" name="afterDate" value="<%=searchOptions.afterDate%>">
+        <input placeholder="Имя продавца" type="text" name="seller" value="<%= %>">
+        <select name="departament">
+            <option label="Все" value="">
+            <% departaments.forEach(departament => { %>
+                    <option label="<%= departament.departamentName%>" value="<%= departament.departamentName%>">
+            <%});%>
+        </select>
+        <input placeholder="Название Товара"type="text" name="product" value="<%= searchOptions.product%>">
+        <input placeholder="Количество больше чем" type="number" name="quantityMore" value="<%= searchOptions.quantityMore%>">
+        <input placeholder="Количество меньше чем"type="number" name="quantityLess" value="<%= searchOptions.quantityLess%>">
+        <input placeholder="Сумма больше чем" type="number" name="summMore" value="<%= searchOptions.summMore%>">
+        <input placeholder="Сумма меньше чем"type="number" name="summLess" value="<%= searchOptions.summLess%>">
+        <br>
+        <select name="sort">
+            <option label="От А до Я имя" value="client"></option>
+            <option label="От Я до А имя" value="-client"></option>
+            <option label="Возрастание дата" value="Date"></option>
+            <option label="Убывание дата" value="-Date"></option>
+            <option label="От А до Я продавец" value="seller.name"></option>
+            <option label="От Я до А продавец" value="-seller.name"></option>
+            <option label="От А до Я товар" value="item.name"></option>
+            <option label="От Я до А товар" value="-item.name"></option>
+            <option label="Возрастание количество" value="quantity"></option>
+            <option label="Убывание количество"value="-quantity"></option>
+            <option label="Возрастание сумма" value="summ">
+            <option label="Убывание сумма" value="-summ">
+        </select>
+        <input type="submit" value="Искать">
+        <button id="clearBtn">Очистить</button>
+    </form>
     <a href="/sales/create">Добавить продажу</a>
 <table align="center"rules="cols">
     <tr>
@@ -16,9 +52,9 @@
         <tr> 
             <td><%= sale.client %></td>
             <td><%= sale.Date.toLocaleDateString()%></td>
-            <td><%= sale.seller.employeeName%></td>
-            <td><%= sale.departament.departamentName%></td> 
-            <td><%= sale.item.productName%></td> 
+            <td><%= sale.seller.name%></td>
+            <td><%= sale.departament.name%></td> 
+            <td><%= sale.item.name%></td> 
             <td><%= sale.quantity%></td> 
             <td><%= sale.summ%></td> 
             <td>
@@ -30,3 +66,5 @@
         
     <%});%>
 </table>
+<script src="../scripts/clear.js"></script>
+<script src="../scripts/betterSelect.js"></script>

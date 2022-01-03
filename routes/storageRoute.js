@@ -1,30 +1,39 @@
 const router = require("express").Router()
 const storage = require("../models/storage")
-const products = require("../models/productModel")
+const Product = require("../models/productModel")
 const queryFunc = require("../public/scripts/queryFuncs")
 router.get("/", async (req,res)=> {
     let query
     try {
-    query = storage.find().populate("item")
-    // query = query.regex("item.productName", new RegExp(req.query.name, 'i'))
-    // query = queryFunc(query, req.query.name, "item.productName")
-    // query = queryFunc(query, req.query.articul, "productArticul")
-    // query = queryFunc(query, req.query.productType, "productType")
-    // query = queryFunc(query, req.query.priceLess, "productPrice", "lte")
-    // query = queryFunc(query, req.query.priceMore, "productPrice", "gte")
+        query = storage.find()
+        query = queryFunc(query,req.query.name,"item.name")
+        query = queryFunc(query,req.query.articul,"item.articul")
+        query = queryFunc(query,req.query.productType,"item.productType")
+        query = queryFunc(query, req.query.quantityLess, "quantity", "lte")
+        query = queryFunc(query, req.query.quantityMore, "quantity", "gte")
+        query = queryFunc(query, req.query.beforeDate, "importDate", "lte")
+        query = queryFunc(query, req.query.afterDate, "importDate", "gte")
+        query = query.sort(req.query.sort)
     const storageItems = await query.exec()
-    res.render("storage/index", {title:"Склад", storageItems, searchOptions:req.query})
+    const products = await Product.find({})
+    res.render("storage/index", {title:"Склад", storageItems,products, searchOptions:req.query})
     } catch(err) {console.log(err)}
     
 })
 router.get("/create", async (req,res)=> {
-    const items = await products.find({})
+    const items = await Product.find({})
     const storageItems = await storage.find({})
     res.render("storage/create", {title:"Добавить на склад", storageItems, items})
 })
 router.post("/create", async (req,res)=> {
+    const product = await Product.findById(req.body.item)
     await new storage({
-        item:req.body.item,
+        item: {
+            _id:req.body.item,
+            name: product.productName,
+            articul: product.productArticul,
+            productType: product.productType
+        },
         quantity:req.body.quantity,
         importDate: new Date( req.body.date)
     }).save()
@@ -42,7 +51,7 @@ router.delete("/:id", async(req,res)=> {
 })
 router.get("/:id/edit", async(req,res)=> {
     const storageItem = await storage.findById(req.params.id).populate("item").exec();
-    const items = await products.find({})
+    const items = await Product.find({})
     res.render("storage/edit", {title:"Изменить на складе", storageItem, items})
 })
 router.put("/:id", async(req,res)=> {

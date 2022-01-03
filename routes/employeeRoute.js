@@ -1,11 +1,20 @@
 const router = require("express").Router()
 const Employee = require("../models/employeeModel")
 const Departament = require("../models/departamentModel")
+const queryFunc = require("../public/scripts/queryFuncs")
 router.get("/", async(req,res)=> {
+    let query
     try {
-        const employees = await Employee.find({}).populate("departament").exec()
-        res.render("producers/index", {title:"Рабочие", employees})
+        query = Employee.find()
+        query = queryFunc(query, req.query.name, "employeeName")
+        query = queryFunc(query, req.query.position, "position")
+        query = queryFunc(query, req.query.passport, "pasport")
+        query = queryFunc(query, req.query.departament, "departament.departamentName")
+        query = query.sort(req.query.sort)
     } catch(err) {console.log(err)}
+        const departaments = await Departament.find({})
+        const employees = await query.exec()
+        res.render("producers/index", {title:"Рабочие", employees, departaments})
 })
 router.get("/create", async(req,res)=> {
     try {
@@ -14,10 +23,14 @@ router.get("/create", async(req,res)=> {
     } catch(err) {console.log(err)}
 })
 router.post("/create", async(req,res)=> {
+    const Dep =  await Departament.findById(req.body.departament)
     try {
         await new Employee({
         employeeName: req.body.employeeName,
-        departament: req.body.departament,
+        departament: {
+            id:Dep.id,
+            departamentName:Dep.departamentName
+        },
         position: req.body.position,
         pasport: req.body.pasport
         }).save()

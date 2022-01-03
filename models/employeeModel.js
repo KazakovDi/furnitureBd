@@ -9,8 +9,11 @@ const employeeSchema = new Schema({
         required:true
     }, 
     departament: {
-        ref:"departamentModel",
-        type:Schema.Types.ObjectId
+        _id:{ref:"departamentModel", type:Schema.Types.ObjectId},
+        departamentName: {
+            type:String,
+            required:true
+        }
     },
     pasport: {
         type:String,

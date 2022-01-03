@@ -3,18 +3,18 @@
     <select name="detail">
         <% details.forEach( detail => { %>
             <% if(detail.id === process.detail) { %>
-                <option selected label="<%=detail.productName %>" value="<%=detail.id%>"></option>
+                <option selected label="<%=detail.productName %>" value="<%=detail.productName%>"></option>
             <%}%>
-            <option label = "<%=detail.productName %>" value="<%=detail.id%>">
+            <option label="<%=detail.productName %>" value="<%=detail.productName%>">
                 <%})%>
     </select>
     <input placeholder="название процесса "type="text" value="<%=process.processName%>" name="processName">
     <select name="product">
         <% products.forEach( product => { %>
             <% if(product.id === process.product) { %>
-                <option selected label="<%=product.productName %>" value="<%=product.id%>"></option>
+                <option selected label="<%=product.productName %>" value="<%=product.productName%>"></option>
             <%}%>
-            <option label = "<%=product.productName %>" value="<%=product.id%>">
+            <option label = "<%=product.productName %>" value="<%=product.productName%>">
             <%})%>
     </select>
     <select name="master">
@@ -22,7 +22,7 @@
             <% if(employee.id === process.master) { %>
                 <option selected label="<%=employee.employeeName %>" value="<%=employee.id%>"></option>
             <%}%>
-            <option label = "<%=employee.employeeName %>" value="<%=employee.id%>">
+            <option label="<%=employee.employeeName %>" value="<%=employee.id%>">
                 <%})%>
     </select>
     <input placeholder="количество" type="number" value="<%=process.quantity %>" name="quantity">

@@ -1,4 +1,22 @@
 <h1>Клиенты</h1>
+<form method="GET" action="/clients/">
+    <input type="text" placeholder="Имя" name="name">
+    <input type="date" name="dateAfter">
+    <input type="date" name="dateBefore">
+    <input type="text" placeholder="Покупка" name="item">
+    <input type="number" placeholder="Меньше чем" name="summLess">
+    <input type="number" placeholder="Больше чем" name="summMore">
+    <select name="sort">
+        <option label="От А до Я" value="client">
+        <option label="От Я до А" value="-client">
+        <option label="Дата раньше" value="Date">
+        <option label="Дата позже" value="-Date">
+        <option label="Cумма возростание" value="summ">
+        <option label="Cумма убывание" value="-summ">
+    </select>
+    <input type="submit" value="искать">
+    <button id="clearBtn">Очистить</button>
+</form>
 <table align="center"rules="cols">
 <tr>
     <td>Имя</td>
@@ -10,9 +28,11 @@
     <tr> 
         <td><%= client.client %></td>
         <td><%= client.Date.toLocaleDateString()%></td>
-        <td><%= client.item.productName%></td> 
+        <td><%= client.item.name%></td> 
         <td><%= client.summ%></td> 
     </tr>
     
 <%});%>
 </table>
+<script src="../scripts/clear.js"></script>
+<script src="../scripts/betterSelect.js"></script>

@@ -3,12 +3,27 @@ const Sale = require("../models/saleModel")
 const Employee =  require("../models/employeeModel")
 const Product = require("../models/productModel")
 const Client = require("../models/clientsModel")
+const Departament = require("../models/departamentModel")
+const queryFunc = require("../public/scripts/queryFuncs")
 router.get("/", async (req,res)=> {
+    let query
     try {
-        const sales = await Sale.find({}).populate("seller").populate("departament").populate("item")
-        res.render("sales/index", {title:"Продажи", sales})
+        query = Sale.find()
+        query = queryFunc(query, req.query.client, "client")
+        query = queryFunc(query, req.query.afterDate, "Date", "gte")
+        query = queryFunc(query, req.query.beforeDate, "Date", "lte")
+        query = queryFunc(query, req.query.seller, "seller.name")
+        query = queryFunc(query, req.query.departament, "departament.name")
+        query = queryFunc(query, req.query.product, "item.name")
+        query = queryFunc(query, req.query.quantityMore, "quantity", "gte")
+        query = queryFunc(query, req.query.quantityLess, "quantity", "lte")
+        query = queryFunc(query, req.query.summMore, "summ", "gte")
+        query = queryFunc(query, req.query.summLess, "summ", "lte")
+        query = query.sort(req.query.sort)
     } catch(err) { console.log(err)}
-    
+    const sales = await query.exec()
+    const departaments = await Departament.find({})
+    res.render("sales/index", {title:"Продажи", sales, searchOptions:req.query, departaments})
 })
 router.get("/create", async (req,res)=> {
     try {
@@ -22,29 +37,40 @@ router.post("/create", async (req,res)=> {
     let sale
     let client
     try {
-            sale = await new Sale({
+        const seller = await Employee.findById(req.body.seller)
+        const product = await Product.findById(req.body.item)
+        sale = await new Sale({
             client: req.body.client,
             Date: req.body.Date,
-            seller: req.body.seller,
-            item: req.body.item,
+            seller: {
+                _id:seller.id,
+                name:seller.employeeName
+            },
+            item: {
+                _id:product.id,
+                name:product.productName
+            },
+            departament: {
+                _id:seller.id,
+                name:seller.departament.departamentName
+            },
             quantity: req.body.quantity
         })
         client =  await new Client({
             saleId: sale.id,
             client:req.body.client,
             Date: req.body.Date,
-            item: req.body.item,
+            item: {
+                _id:product.id,
+                name:product.productName
+            }
         })
-        const seller = await Employee.findById(sale.seller)
-        sale.departament = seller.departament
-        const product = await Product.findById(sale.item)
         sale.summ = product.productPrice * sale.quantity
         client.summ = sale.summ
         await sale.save()
         await client.save()
         res.redirect("/sales")
     } catch(err) { console.log(err)}
-    
 })
 router.get("/:id/edit", async(req,res)=> {
     const sale = await Sale.findById(req.params.id)
@@ -54,29 +80,21 @@ router.get("/:id/edit", async(req,res)=> {
 })
 router.put("/:id", async(req,res)=> {
     let sale
-    let cli
     try {
         sale = await Sale.findById(req.params.id)
+        const seller = await Employee.find(req.body.seller)
+        const item = await Product.find(req.body.item)
         sale.client = req.body.client
         if(req.body.Date !== "")
             sale.Date = req.body.Date
-        sale.seller = req.body.seller
-        sale.item = req.body.item
+        sale.seller.id = req.body.seller
+        sale.seller.name = seller.employeeName
+        sale.departament.id = seller.departament.id
+        sale.departament.name = seller.departament.departamentName
+        sale.item.id = req.body.item
+        sale.item.name = item.productName
         sale.quantity = req.body.quantity
-        const seller = await Employee.findById(sale.seller)
-        sale.departament = seller.departament
-        const product = await Product.findById(sale.item)
-        sale.summ = product.productPrice * sale.quantity
-        await sale.save()
-        cli = await Client.findOne({saleId:req.params.id})
-        await cli.overwrite({
-            client:sale.client,
-            saleId:req.params.id,
-            Date:sale.Date,
-            item:sale.item,
-            summ:sale.summ
-        })
-        await cli.save()
+        sale.summ = req.body.quantity * item.productPrice
     } catch(err) {
         console.log(err)
     }

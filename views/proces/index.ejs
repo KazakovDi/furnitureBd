@@ -6,14 +6,25 @@
         <input type="date" name="beforeDate" value="<%=searchOptions.beforeDate%>">
         <label for="beforeDate">После</label>
         <input type="date" name="afterDate" value="<%=searchOptions.afterDate%>">
-        <input placeholder="Название детали" type="text" name="detail" value="<%= %>">
-        <input placeholder="Название изделия"type="text" name="product" value="<%= %>">
-        <input placeholder="Имя мастера" type="text" name="master" value="<%= %>">
-        <select name="departament"></select>
-        <input placeholder="Количество больше чем" type="number" name="quantityMore" value="<%= %>">
-        <input placeholder="Количество меньше чем"type="number" name="quantityLess" value="<%= %>">
-        <input placeholder="Цена больше чем" type="number" name="priceMore" value="<%= %>">
-        <input placeholder="Цена меньше чем"type="number" name="priceLess" value="<%= %>">
+        <input placeholder="Название детали" type="text" name="detail" value="<%= searchOptions.detail%>">
+        <input placeholder="Название процесса" type="text" name="processName" value="<%= searchOptions.processName%>">
+        <input placeholder="Название изделия"type="text" name="product" value="<%= searchOptions.product%>">
+        <input placeholder="Имя мастера" type="text" name="master" value="<%= searchOptions.master%>">
+        <select name="departament">
+            <option label="Все" value="">
+            <% departaments.forEach(departament => { %>
+                <% if(searchOptions.departament == departament.departamentName) {%>
+                    <option selected label="<%=departament.departamentName %>" value="<%=departament.departamentName%>">
+                <% } else {%>
+                    <option label="<%=departament.departamentName %>" value="<%=departament.departamentName%>">
+                <%}%>
+                
+            <%})%>
+        </select>
+        <input placeholder="Количество больше чем" type="number" name="quantityMore" value="<%= searchOptions.quantityMore%>">
+        <input placeholder="Количество меньше чем"type="number" name="quantityLess" value="<%= searchOptions.quantityLess%>">
+        <input placeholder="Цена больше чем" type="number" name="priceMore" value="<%= searchOptions.priceMore%>">
+        <input placeholder="Цена меньше чем"type="number" name="priceLess" value="<%= searchOptions.priceLess%>">
         <input type="submit" value="Искать">
         <button id="clearBtn">Очистить</button>
     </form>
@@ -31,19 +42,15 @@
     <% procs.forEach(proc => { %>
         <tr> 
             <td><%= proc.processDate.toLocaleDateString() %></td>
-            <td><%= proc.detail.productName%></td>
+            <td><%= proc.detail.name%></td>
             <td><%= proc.processName %></td>
-            <td><%= proc.product.productName%></td>
-            <td><%= proc.master.employeeName%></td> 
-            <%if(proc.departament !== undefined) { %>
-                <td><%= proc.departament.departamentName%></td> 
-            <%} else {%>
-                <td></td>
-                <%  }%>
+            <td><%= proc.product.name%></td>
+            <td><%= proc.master.name%></td> 
+            <td><%= proc.departament.name%></td> 
             <td><%= proc.quantity%></td>
             <td><%= proc.processPrice%></td> 
             <td>
-            <form method="POST" action="/<%= proc.id %>?_method=DELETE">
+            <form method="POST" action="/process/<%= proc.id %>?_method=DELETE">
                 <button type="submit">Удалить</button>
             </form>
             <a href="/process/<%= proc.id %>/edit">Изменить</a> </td> 
@@ -52,3 +59,4 @@
     <%});%>
 </table>
 <script src="../scripts/clear.js"></script>
+<script src="../scripts/betterSelect.js"></script>

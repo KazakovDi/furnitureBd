@@ -1,6 +1,6 @@
 <h2>Изменить информацию на складе</h2>
 <form action="/storage/<%= storageItem.id %>?_method=PUT" method="POST">
-        <input readonly value="<%= storageItem.item.productName%>">
+        <input readonly value="<%= storageItem.item.name%>">
         <input name="quantity" type="number" placeholder="Количество" value="<%= storageItem.quantity %>">
         <input name="date" type="date" value="<%= storageItem.importDate%>">
         <input type="submit" value="Изменить">

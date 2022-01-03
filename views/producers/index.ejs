@@ -1,11 +1,35 @@
 
     <h1>Рабочие</h1>
+    <form method="GET" action="/employees/">
+        <input type="text" placeholder="Имя" name="name">
+        <input type="text" placeholder="Должность" name="position">
+        <select name="departament">
+            <option label="Все" value="">
+            <%departaments.forEach(departament=> { %>
+                <option label="<%= departament.departamentName%>" value="<%=departament.departamentName%>">
+            <%})%>
+
+        </select>
+        <input type="text" placeholder="Паспорт" name="passport">
+        <br>
+        <select name="sort">
+            <option label="От А до Я имя" value="employeeName">
+            <option label="От Я до А имя" value="-employeeName">
+            <option label="От А до Я должность" value="position">
+            <option label="От Я до А должность" value="-position">
+            <option label="От А до Я отдел" value="departament.departamentName">
+            <option label="От Я до А отдел" value="-departament.departamentName">
+        </select>
+        <input type="submit" value="искать">
+        <button id="clearBtn">Очистить</button>
+    </form>
 <table align="center"rules="cols">
     <tr>
         <td>Имя</td>
         <td>Должность</td>
         <td>Отдел</td>
         <td>Паспорт</td>
+        <td>Управление</td>
     </tr>
     <% employees.forEach(employee => { %>
         <tr> 
@@ -22,3 +46,5 @@
         
     <%});%>
 </table>
+<script src="../scripts/clear.js"></script>
+<script src="../scripts/betterSelect.js"></script>
