@@ -16,7 +16,7 @@ router.get("/", async (req,res)=> {
         
     }
     const clients = await query.exec()
-    res.render("clients/index", {title:"Таблица клиентов", clients})
+    res.render("clients/index", {title:"Таблица клиентов", clients, searchOptions:req.query})
 })
 router.put("/:id/edit", async (req,res)=> {
     const clients = await Client.find({}).populate("item")

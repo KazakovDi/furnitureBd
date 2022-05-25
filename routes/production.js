@@ -47,6 +47,7 @@ router.put("/detail/:id", async(req,res)=> {
         console.log(err)
     }
 })
+
 router.delete("/:id", async (req,res)=>{
     let item
     try {

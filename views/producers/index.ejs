@@ -1,18 +1,21 @@
 
     <h1>Рабочие</h1>
     <form method="GET" action="/employees/">
-        <input type="text" placeholder="Имя" name="name">
-        <input type="text" placeholder="Должность" name="position">
+        <input type="text" placeholder="Имя" value="<%= searchOptions.name%>" name="name">
+        <input type="text" placeholder="Должность" value="<%= searchOptions.position%>" name="position">
         <select name="departament">
             <option label="Все" value="">
             <%departaments.forEach(departament=> { %>
+                <% if(departament.departamentName === searchOptions.departament) {%>
+                    <option selected label="<%= departament.departamentName%>" value="<%=departament.departamentName%>"></option>
+                <%} else {%>
                 <option label="<%= departament.departamentName%>" value="<%=departament.departamentName%>">
-            <%})%>
+            <%}})%>
 
         </select>
-        <input type="text" placeholder="Паспорт" name="passport">
+        <input type="text" placeholder="Паспорт" value="<%= searchOptions.passport%>" name="passport">
         <br>
-        <select name="sort">
+        <select class="<%= searchOptions.sort%>" id="sortSelect" name="sort">
             <option label="От А до Я имя" value="employeeName">
             <option label="От Я до А имя" value="-employeeName">
             <option label="От А до Я должность" value="position">
@@ -20,9 +23,10 @@
             <option label="От А до Я отдел" value="departament.departamentName">
             <option label="От Я до А отдел" value="-departament.departamentName">
         </select>
-        <input type="submit" value="искать">
+        <button type="submit">искать</button>
         <button id="clearBtn">Очистить</button>
     </form>
+    
 <table align="center"rules="cols">
     <tr>
         <td>Имя</td>

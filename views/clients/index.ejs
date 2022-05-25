@@ -1,12 +1,12 @@
 <h1>Клиенты</h1>
 <form method="GET" action="/clients/">
-    <input type="text" placeholder="Имя" name="name">
-    <input type="date" name="dateAfter">
-    <input type="date" name="dateBefore">
-    <input type="text" placeholder="Покупка" name="item">
-    <input type="number" placeholder="Меньше чем" name="summLess">
-    <input type="number" placeholder="Больше чем" name="summMore">
-    <select name="sort">
+    <input type="text" placeholder="Имя" name="name" value="<%= searchOptions.name%>">
+    <input type="date" name="dateAfter" value="<%= searchOptions.dateAfter%>">
+    <input type="date" name="dateBefore" value="<%= searchOptions.dateBefore%>">
+    <input type="text" placeholder="Покупка" name="item" value="<%= searchOptions.item%>">
+    <input type="number" placeholder="Меньше чем" name="summLess" value="<%= searchOptions.summLess%>">
+    <input type="number" placeholder="Больше чем" name="summMore" value="<%= searchOptions.summMore%>">
+    <select class="<%= searchOptions.sort%>" id="sortSelect" name="sort">
         <option label="От А до Я" value="client">
         <option label="От Я до А" value="-client">
         <option label="Дата раньше" value="Date">
@@ -14,7 +14,7 @@
         <option label="Cумма возростание" value="summ">
         <option label="Cумма убывание" value="-summ">
     </select>
-    <input type="submit" value="искать">
+    <button type="submit">Искать</button>
     <button id="clearBtn">Очистить</button>
 </form>
 <table align="center"rules="cols">

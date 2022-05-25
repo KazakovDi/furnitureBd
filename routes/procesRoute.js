@@ -5,7 +5,6 @@ const Employee = require("../models/employeeModel")
 const Departament = require("../models/departamentModel")
 const queryFunc = require("../public/scripts/queryFuncs")
 router.get("/", async (req,res)=> {
-    const process = await Process.find({})
     let query = Process.find()
     query = queryFunc(query, req.query.beforeDate, "processDate", "lte")
     query = queryFunc(query, req.query.afterDate, "processDate", "gte")
@@ -20,9 +19,6 @@ router.get("/", async (req,res)=> {
     query = queryFunc(query, req.query.priceMore, "processPrice", "gte")
     const departaments = await Departament.find({})
     const procs = await query.exec()
-    process.forEach(proc=> {
-        console.log(proc.departament.name)
-    })
     res.render("proces/index", {title:"Таблица процессов", procs,departaments,  searchOptions:req.query})
 })
 router.get("/create", async (req,res)=> {

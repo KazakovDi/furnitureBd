@@ -2,8 +2,8 @@
     <h1>Комплектующие</h1>
     <a href="/create">Добавить комплектующие</a>
     <form action="/" method="GET">
-        <input type="text" name="name" value="<%= searchOptions.name%>">
-        <input type="text" name="articul" value="<%=searchOptions.articul%>">
+        <input placeholder="Название детали" type="text" name="name" value="<%= searchOptions.name%>">
+        <input placeholder="Артикул" type="text" name="articul" value="<%=searchOptions.articul%>">
         <select id="typeSelect" class="<%=searchOptions.productType%>" name="productType">
                     <option value="" label="Все">
                     <option value="Изделие" label="Изделие">

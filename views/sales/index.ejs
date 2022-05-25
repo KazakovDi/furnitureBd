@@ -19,7 +19,7 @@
         <input placeholder="Сумма больше чем" type="number" name="summMore" value="<%= searchOptions.summMore%>">
         <input placeholder="Сумма меньше чем"type="number" name="summLess" value="<%= searchOptions.summLess%>">
         <br>
-        <select name="sort">
+        <select class="<%= searchOptions.sort%>" id="sortSelect" name="sort">
             <option label="От А до Я имя" value="client"></option>
             <option label="От Я до А имя" value="-client"></option>
             <option label="Возрастание дата" value="Date"></option>

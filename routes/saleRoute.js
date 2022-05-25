@@ -99,7 +99,7 @@ router.put("/:id", async(req,res)=> {
         console.log(err)
     }
 })
-router.delete("/:id", async(req,res)=> {
+router.delete("/worker/:id", async(req,res)=> {
     let sale
     let client
     try {

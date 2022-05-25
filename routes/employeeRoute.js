@@ -14,7 +14,7 @@ router.get("/", async(req,res)=> {
     } catch(err) {console.log(err)}
         const departaments = await Departament.find({})
         const employees = await query.exec()
-        res.render("producers/index", {title:"Рабочие", employees, departaments})
+        res.render("producers/index", {title:"Рабочие", employees, departaments, searchOptions:req.query})
 })
 router.get("/create", async(req,res)=> {
     try {

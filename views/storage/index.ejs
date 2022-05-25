@@ -7,18 +7,10 @@
         <input placeholder="Артикул" type="text" name="articul" value="<%=searchOptions.articul%>">
         <input placeholder="Больше чем" type="number" name="quantityMore" value="<%=searchOptions.quantityMore %>">
         <input placeholder="Меньше чем"type="number" name="quantityLess" value="<%=searchOptions.quantityLess %>">
-        <select name="productType">
+        <select id="typeSelect" class="<%=searchOptions.productType%>" name="productType">
             <option value="" label="Все">
-                <%if(searchOptions.productType === "Деталь") {%>
-                    <option value="Изделие" label="Изделие">
-                    <option selected value="Деталь" label="Деталь">
-                <%} else if(searchOptions.productType === "Изделие") {%>
-                    <option selected value="Изделие" label="Изделие">
-                    <option value="Деталь"label="Деталь">
-                <%} else {%>
-                    <option value="Изделие" label="Изделие">
-                    <option value="Деталь"label="Деталь">
-                <%}%>
+            <option value="Изделие" label="Изделие">
+            <option value="Деталь" label="Деталь">
         </select>
         <label for="beforeDate">До</label>
         <input type="date" name="beforeDate" value="<%=searchOptions.beforeDate%>">
